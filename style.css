@@ -7,4 +7,13 @@ h1
 {
     font-size: 14pt;
     color: red;
+    text-shadow: 1px 1px 3px green;
+}
+
+.par-2
+{
+    text-align: center;
+    font-style: italic;
+    font-size: 24px;
+    text-shadow: 1px 1px 3px green;
 }
