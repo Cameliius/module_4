@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib import admin
+from django.utils import timezone
+from django.utils.html import format_html
 
 
 class Adverisments(models.Model):
@@ -31,6 +34,20 @@ class Adverisments(models.Model):
         auto_now=True,
         verbose_name="Дата обновления"
     )
+
+    @admin.display(description='дата создания')
+    def created_date(self):
+        if self.created_at.date() == timezone.now().date():
+            created_time = self.created_at.time().strftime("%H:%M:%S")
+            return format_html('<span>Сегодня в {}</span>', created_time)
+        return self.created_at.strftime("%d.%m.%y в %H:%M:%S")
+
+    @admin.display(description='дата обновления')
+    def update_date(self):
+        if self.updated_at.date() == timezone.now().date():
+            update_time = self.updated_at.time().strftime("%H:%M:%S")
+            return format_html('<span style= color:green> Сегодня в {}</span>', update_time)
+        return self.created_at.strftime("%d.%m.%y в %H:%M:%S")
 
     def __str__(self):
         return f'Advertisement(id={self.id}, title={self.title}, price={self.price})'
